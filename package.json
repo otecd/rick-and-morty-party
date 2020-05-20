@@ -102,6 +102,16 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-import-resolver-typescript": "^2.0.0"
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --no-stash"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.*": "npm run lint"
   }
 }
