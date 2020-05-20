@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const StyledApp = styled.div`
@@ -6,12 +6,13 @@ const StyledApp = styled.div`
   justify-content: center;
 `;
 
-const App = () => {
-  return (
-    <StyledApp>
-      <p>Test <code>code</code></p>
-    </StyledApp>
-  );
-};
+const App: FC = () => (
+  <StyledApp>
+    <p>
+      {'Test '}
+      <code>code</code>
+    </p>
+  </StyledApp>
+);
 
 export default App;

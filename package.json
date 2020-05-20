@@ -20,11 +20,71 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint ./src/**/*.*",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "extends": [
+      "airbnb",
+      "react-app",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "typescript": {}
+      }
+    },
+    "rules": {
+      "react/jsx-filename-extension": [
+        2,
+        {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      ],
+      "@typescript-eslint/indent": [
+        2,
+        2
+      ],
+      "spaced-comment": [
+        2,
+        "always",
+        {
+          "markers": [
+            "/"
+          ]
+        }
+      ],
+      "import/extensions": [
+        0
+      ],
+      "arrow-parens": [
+        2,
+        "as-needed",
+        {
+          "requireForBlockBody": true
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -37,5 +97,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-typescript": "^2.0.0"
   }
 }
