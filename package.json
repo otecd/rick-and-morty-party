@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/graphql": "^14.5.0",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.41",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.0",
+    "apollo-boost": "^0.4.9",
+    "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -22,7 +26,8 @@
     "build": "react-scripts build",
     "lint": "eslint ./src/**/*.*",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generateGqlTypes": "npx apollo schema:download --endpoint=https://rickandmortyapi.com/graphql ./graphql-schema.json && npx apollo codegen:generate --localSchemaFile=src/graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/types/graphql-global-types.ts types"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -83,6 +88,10 @@
         {
           "requireForBlockBody": true
         }
+      ],
+      "comma-dangle": [
+        2,
+        "only-multiline"
       ]
     }
   },

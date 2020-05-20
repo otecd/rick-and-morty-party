@@ -1,6 +1,8 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as styleThemes from './style-themes';
@@ -18,13 +20,18 @@ const GlobalStyle = createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 `;
+const apolloClient = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql'
+});
 
 ReactDOM.render(
   <StrictMode>
-    <ThemeProvider theme={styleThemes.light}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider theme={styleThemes.light}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </ApolloProvider>
   </StrictMode>,
   document.getElementById('root'),
 );
