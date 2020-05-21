@@ -58,7 +58,7 @@ export default (props: Props): JSX.Element => {
   const [state, dispatch] = useReducer((prevState: ReducerState, action: ReducerAction) => {
     switch (action.type) {
       case 'UPDATE_NAME':
-        return { ...prevState, name: action.payload };
+        return { ...prevState, name: action.payload.toLowerCase() };
       case 'REFRESH_TIMER':
         return { ...prevState, timer: setTimeout(() => onTimerEnd(), FINDER_REQUESTS_INTERVAL) };
       case 'CLEAR_TIMER':
