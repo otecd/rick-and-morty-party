@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LazyCharactersFinder } from './components';
 
 const StyledApp = styled.div`
   display: flex;
@@ -10,8 +11,6 @@ const StyledApp = styled.div`
 
 export default (): JSX.Element => (
   <StyledApp>
-    <p>
-      Test
-    </p>
+    <LazyCharactersFinder />
   </StyledApp>
 );
