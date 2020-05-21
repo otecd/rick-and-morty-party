@@ -10,6 +10,7 @@ import {
 } from '../../gql-operations/types/Characters';
 import {
   FINDER_REQUESTS_INTERVAL,
+  FINDER_MIN_NAME_LENGTH,
   FINDER_PLACEHOLDER,
   FINDER_ERROR_NAME_LENGTH_TOO_FEW,
 } from '../../const';
@@ -87,7 +88,7 @@ export default (props: Props): JSX.Element => {
   };
 
   useEffect(() => {
-    if (state.name && state.name.length > 1) {
+    if (state.name && state.name.length > FINDER_MIN_NAME_LENGTH) {
       dispatch({ type: 'WAIT_FOR_QUERY' });
     } else {
       dispatch({ type: 'DONT_WAIT_FOR_QUERY' });
