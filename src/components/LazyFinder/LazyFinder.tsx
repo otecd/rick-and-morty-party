@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import { finderActionTypes, useFinderReducer } from '../../store/reducers/finder';
+import { actionTypes } from '../../store/finder';
+import useFinderReducer from './use-finder-reducer';
 import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
@@ -33,7 +34,7 @@ const {
   UPDATE_NAME,
   UPDATE_EXCLUDED_ITEMS,
   WRITE_RESULTS_BY_PAGE,
-} = finderActionTypes;
+} = actionTypes;
 
 export default (props: Props): JSX.Element => {
   const {

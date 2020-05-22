@@ -1,28 +1,16 @@
-import { useReducer, Dispatch } from 'react';
+import { ReducerState, actionTypes } from '../finder';
 
-interface ReducerState {
-  name: string;
-  excludedItems: Item[];
-  resultsByPages: Item[][];
-}
-
-export const finderActionTypes = {
-  UPDATE_NAME: 'UPDATE_NAME',
-  UPDATE_EXCLUDED_ITEMS: 'UPDATE_EXCLUDED_ITEMS',
-  WRITE_RESULTS_BY_PAGE: 'WRITE_RESULTS_BY_PAGE',
-};
-
-const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
+export default (state: ReducerState, action: ReducerAction): ReducerState => {
   const newState = { ...state };
 
   switch (action.type) {
-    case finderActionTypes.UPDATE_NAME:
+    case actionTypes.UPDATE_NAME:
       newState.name = action.payload.toLowerCase();
       break;
-    case finderActionTypes.UPDATE_EXCLUDED_ITEMS:
+    case actionTypes.UPDATE_EXCLUDED_ITEMS:
       newState.excludedItems = action.payload;
       break;
-    case finderActionTypes.WRITE_RESULTS_BY_PAGE: {
+    case actionTypes.WRITE_RESULTS_BY_PAGE: {
       const { currentPage, results } = action.payload || {};
       const resultsByPages: Item[][] = currentPage === 1 ? [] : newState.resultsByPages;
       const noIds = newState.excludedItems.map(item => item.id);
@@ -39,13 +27,3 @@ const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
 
   return newState;
 };
-const initialState = {
-  name: '',
-  excludedItems: [],
-  resultsByPages: [],
-};
-
-export const useFinderReducer = (): [ReducerState, Dispatch<ReducerAction>] => useReducer(
-  reducer,
-  initialState
-);
