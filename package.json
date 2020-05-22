@@ -67,9 +67,11 @@
           ]
         }
       ],
-      "@typescript-eslint/indent": [
+      "@typescript-eslint/camelcase": [
         2,
-        2
+        {
+          "allow": ["^Characters_"]
+        }
       ],
       "spaced-comment": [
         2,

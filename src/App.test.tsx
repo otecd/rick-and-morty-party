@@ -4,7 +4,7 @@ import App from './App';
 
 test('renders proper text', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText((content, element) => element.tagName.toLowerCase() === 'p' && content.startsWith('Test'));
+  const el = getByText((_, element) => element.tagName.toLowerCase() === 'input');
 
-  expect(linkElement).toBeInTheDocument();
+  expect(el).toBeInTheDocument();
 });

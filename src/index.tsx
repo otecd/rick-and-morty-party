@@ -8,11 +8,18 @@ import * as serviceWorker from './serviceWorker';
 import * as styleThemes from './style-themes';
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 30px;
+
+    @media (max-width: 820px) {
+      font-size: 3.7vw;
+    }
+  }
   body {
     background-color: ${(props): string => props.theme.colors.secondary};
     color: ${(props): string => props.theme.colors.main};
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font: 300 1rem Roboto, sans-serif, 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
