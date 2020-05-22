@@ -1,14 +1,9 @@
 import { useReducer, Dispatch } from 'react';
-import { Characters_characters_results as ItemsType } from '../../gql-operations/types/Characters';
 
 interface ReducerState {
   name: string;
-  excludedItems: ItemsType[];
-  resultsByPages: ItemsType[][];
-}
-interface ReducerAction {
-  type: string;
-  payload?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  excludedItems: Item[];
+  resultsByPages: Item[][];
 }
 
 export const finderActionTypes = {
@@ -29,11 +24,11 @@ const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
       break;
     case finderActionTypes.WRITE_RESULTS_BY_PAGE: {
       const { currentPage, results } = action.payload || {};
-      const resultsByPages: ItemsType[][] = currentPage === 1 ? [] : newState.resultsByPages;
+      const resultsByPages: Item[][] = currentPage === 1 ? [] : newState.resultsByPages;
       const noIds = newState.excludedItems.map(item => item.id);
 
       if (resultsByPages.length < currentPage) {
-        resultsByPages.push(results.filter((item: ItemsType) => !noIds.includes(item.id)));
+        resultsByPages.push(results.filter((item: Item) => !noIds.includes(item.id)));
       }
       newState.resultsByPages = resultsByPages;
       break;

@@ -1,8 +1,11 @@
+import LazyFinder from './LazyFinder/LazyFinder';
 import LazyCharactersFinder from './LazyFinder/LazyCharactersFinder';
 
 export {
-  LazyCharactersFinder
+  LazyFinder,
+  LazyCharactersFinder,
 };
 export default {
-  LazyCharactersFinder
+  LazyFinder,
+  LazyCharactersFinder,
 };
