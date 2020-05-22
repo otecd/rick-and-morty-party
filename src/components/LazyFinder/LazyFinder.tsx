@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import { actionTypes } from '../../store/finder';
-import useFinderReducer from './use-finder-reducer';
+import { StoreContext as FinderStoreContext, actionTypes } from '../../store/finder';
 import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
@@ -45,13 +48,13 @@ export default (props: Props): JSX.Element => {
     dataType,
     query,
   } = props;
+  const { state, dispatch } = useContext(FinderStoreContext);
   const [doQuery, { loading, data }] = useLazyQuery<QueryData, QueryVariables>(query, {
     onError,
     partialRefetch: true,
   });
   const [wait, setWait] = useState<boolean>(false);
   const [timer, setTimer] = useState<number | null>(null);
-  const [state, dispatch] = useFinderReducer();
 
   useEffect(() => {
     dispatch({ type: UPDATE_EXCLUDED_ITEMS, payload: excludedItems });

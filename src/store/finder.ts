@@ -1,10 +1,12 @@
-import { createContext } from 'react';
+import { createContext, Dispatch } from 'react';
 
 export interface ReducerState {
   name: string;
   excludedItems: Item[];
   resultsByPages: Item[][];
 }
+
+const dispatch: Dispatch<ReducerAction> = () => undefined;
 
 export const actionTypes = {
   UPDATE_NAME: 'UPDATE_NAME',
@@ -16,7 +18,4 @@ export const initialState: ReducerState = {
   excludedItems: [],
   resultsByPages: [],
 };
-export const StoreContext = createContext({
-  state: initialState,
-  dispatch: () => undefined,
-});
+export const StoreContext = createContext({ state: initialState, dispatch });

@@ -1,16 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LazyCharactersFinder } from './components';
+import { StoreProvider, LazyCharactersFinder } from './components';
 
 const StyledApp = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 141px;
   font: inherit;
 `;
 
 export default (): JSX.Element => (
-  <StyledApp>
-    <LazyCharactersFinder />
-  </StyledApp>
+  <StoreProvider>
+    <StyledApp>
+      <LazyCharactersFinder
+        excludedItems={[]}
+        onCompleted={(data): void => undefined}
+        onError={(error): void => undefined}
+        onLoading={(): void => undefined}
+      />
+    </StyledApp>
+  </StoreProvider>
 );
