@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { StoreProvider, LazyCharactersFinder } from './components';
+import {
+  StoreProvider,
+  LazyCharactersFinder,
+  ItemsGrid,
+} from './components';
 
 const StyledApp = styled.div`
   display: flex;
@@ -13,12 +17,8 @@ const StyledApp = styled.div`
 export default (): JSX.Element => (
   <StoreProvider>
     <StyledApp>
-      <LazyCharactersFinder
-        excludedItems={[]}
-        onCompleted={(data): void => undefined}
-        onError={(error): void => undefined}
-        onLoading={(): void => undefined}
-      />
+      <LazyCharactersFinder />
+      <ItemsGrid />
     </StyledApp>
   </StoreProvider>
 );
