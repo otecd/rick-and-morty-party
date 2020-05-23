@@ -4,7 +4,8 @@ import { StoreContext as FinderStoreContext } from '../../store/finder';
 
 const StyledGrid = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 810px;
   padding-top: 30px;
   font: inherit;
@@ -15,6 +16,8 @@ export default (): JSX.Element => {
 
   return (
     <StyledGrid>
+      {state.loading && <small>LOADING</small>}
+      {state.error && <strong>{state.error}</strong>}
       {JSON.stringify(state.resultsByPages, null, 2)}
     </StyledGrid>
   );

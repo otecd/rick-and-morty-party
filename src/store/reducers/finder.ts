@@ -6,6 +6,8 @@ export default (state: ReducerState, action: ReducerAction): ReducerState => {
   switch (action.type) {
     case actionTypes.UPDATE_NAME:
       newState.name = action.payload.toLowerCase();
+      newState.loading = true;
+      newState.error = null;
       break;
     case actionTypes.UPDATE_EXCLUDED_ITEMS:
       newState.excludedItems = action.payload;
@@ -21,6 +23,14 @@ export default (state: ReducerState, action: ReducerAction): ReducerState => {
       newState.resultsByPages = resultsByPages;
       break;
     }
+    case actionTypes.SET_ERROR:
+      newState.error = action.payload;
+      newState.resultsByPages = [];
+      newState.loading = false;
+      break;
+    case actionTypes.STOP_LOADING:
+      newState.loading = false;
+      break;
     default:
       break;
   }
