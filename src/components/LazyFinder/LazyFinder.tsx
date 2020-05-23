@@ -3,9 +3,9 @@ import React, {
   useState,
   useContext,
 } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import { StoreContext as FinderStoreContext, actionTypes } from '../../store/finder';
+import useFinderLazyQuery from './use-finder-lazy-query';
+import { FinderStoreContext } from '../../store/finder';
 import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
@@ -13,13 +13,8 @@ import {
   FINDER_ERROR_NAME_LENGTH_TOO_FEW,
 } from '../../const';
 
-interface Props {
-  dataType: DataType;
-  query: GlobalDocumentNode;
-}
-
 const StyledInput = styled.input`
-  border: 1px solid #A0A0A0;
+  border: 2px solid #A0A0A0;
   text-transform: uppercase;
   font: inherit;
   width: 750px;
@@ -29,75 +24,77 @@ const StyledInput = styled.input`
     width: 85%;
   }
 `;
-const {
-  UPDATE_NAME,
-  WRITE_RESULTS_BY_PAGE,
-  SET_ERROR,
-  STOP_LOADING,
-} = actionTypes;
 
-export default ({ dataType, query }: Props): JSX.Element => {
-  const { state, dispatch } = useContext(FinderStoreContext);
-  const [doQuery, { data }] = useLazyQuery<QueryData, QueryVariables>(query, {
-    partialRefetch: true,
-    onError: (error) => {
-      dispatch({ type: SET_ERROR, payload: error.message || 'Error' });
-    },
-  });
-  const [nameTyped, setNameTyped] = useState('');
+export default ({ dataType, query }: {
+  dataType: DataType;
+  query: GlobalDocumentNode;
+}): JSX.Element => {
+  const { state, actions } = useContext(FinderStoreContext);
+  const {
+    nameTyped,
+    error,
+    name,
+    resultsByPages,
+  } = state;
+  const {
+    updateName,
+    updateNameTyped,
+    writeResultsByPage,
+    stopLoading,
+    throwError,
+  } = actions;
+  const { doQuery, data } = useFinderLazyQuery({ query, errorMessageCb: throwError });
   const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
     if (nameTyped && nameTyped.length > FINDER_MIN_NAME_LENGTH) {
-      if (!timer && nameTyped !== state.name) {
-        dispatch({ type: UPDATE_NAME, payload: nameTyped });
+      if (!timer && !error && (nameTyped !== name || !resultsByPages.length)) {
+        updateName(nameTyped);
         setTimer(setTimeout(() => {
           timer && clearTimeout(timer);
           setTimer(null);
         }, FINDER_REQUESTS_INTERVAL));
       }
     } else {
-      dispatch({ type: SET_ERROR, payload: FINDER_ERROR_NAME_LENGTH_TOO_FEW });
+      throwError(FINDER_ERROR_NAME_LENGTH_TOO_FEW);
     }
-  }, [timer, nameTyped, state.name, dispatch]);
+  }, [timer, nameTyped, error, name, resultsByPages.length, updateName, throwError]);
   useEffect(() => {
-    if (state.name) {
-      doQuery({
-        variables: {
-          page: 1,
-          filter: { name: state.name },
-        },
-      });
-    }
-  }, [state.name, dispatch, doQuery]);
+    name && doQuery({ page: 1, name });
+  }, [name, doQuery]);
   useEffect(() => {
-    if (!state.error) {
-      if (data) {
+    if (!error) {
+      if (data && name === nameTyped) {
         const { info, results } = data[dataType] || {};
         const { pages, prev } = info || {};
         const currentPage = 1 + (prev || 0);
 
-        if (pages && results && state.resultsByPages.length !== currentPage) {
-          dispatch({ type: WRITE_RESULTS_BY_PAGE, payload: { currentPage, results } });
+        if (pages && results) {
+          writeResultsByPage({ currentPage, results });
           if (currentPage < pages) {
-            doQuery({
-              variables: {
-                page: currentPage + 1,
-                filter: { name: state.name },
-              },
-            });
+            doQuery({ page: currentPage + 1, name });
           } else {
-            dispatch({ type: STOP_LOADING });
+            stopLoading();
           }
         }
       }
     }
-  }, [data, dataType, state.name, state.resultsByPages, state.error, dispatch, doQuery]);
+  }, [
+    data,
+    dataType,
+    name,
+    nameTyped,
+    resultsByPages,
+    error,
+    stopLoading,
+    doQuery,
+    writeResultsByPage,
+  ]);
 
   return (
     <StyledInput
       onChange={(event): void => {
-        setNameTyped(event.currentTarget.value);
+        updateNameTyped(event.currentTarget.value);
       }}
       placeholder={FINDER_PLACEHOLDER}
     />

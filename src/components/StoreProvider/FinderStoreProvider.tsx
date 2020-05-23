@@ -4,21 +4,21 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import {
-  StoreContext,
-  ReducerState,
-  initialState,
+  FinderStoreContext,
+  finderInitialState,
+  finderReducer,
+  finderActionsBuilder,
 } from '../../store/finder';
-import finderReducer from '../../store/reducers/finder';
 
 export default ({ children }: PropsWithChildren<{}>): JSX.Element => {
-  const [state, dispatch]: [ReducerState, Dispatch<ReducerAction>] = useReducer(
+  const [state, dispatch]: [State, Dispatch<ReducerAction>] = useReducer(
     finderReducer,
-    initialState
+    finderInitialState
   );
 
   return (
-    <StoreContext.Provider value={{ state, dispatch }}>
+    <FinderStoreContext.Provider value={{ state, actions: finderActionsBuilder(dispatch) }}>
       {children}
-    </StoreContext.Provider>
+    </FinderStoreContext.Provider>
   );
 };

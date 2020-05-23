@@ -7,7 +7,7 @@ import {
 
 declare global {
   type Item = Characters_characters_results;
-  type QueryData = Characters;
+  type QueryData = Characters | undefined;
   type QueryVariables = CharactersVariables;
   type GlobalDocumentNode = DocumentNode;
   type DataType = 'characters';
@@ -16,5 +16,4 @@ declare global {
     type: string;
     payload?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
-
 }

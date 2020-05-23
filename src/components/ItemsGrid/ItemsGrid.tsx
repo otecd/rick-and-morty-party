@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { StoreContext as FinderStoreContext } from '../../store/finder';
+import { FinderStoreContext } from '../../store/finder';
 
 const StyledGrid = styled.div`
   display: flex;
