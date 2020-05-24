@@ -22,7 +22,10 @@ const StyledOverlay = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props): string => props.theme.colors.overlay};
+`;
+const StyledError = styled.p`
+  color: ${(props): string => props.theme.colors.error};
 `;
 
 export default (): JSX.Element => {
@@ -30,7 +33,7 @@ export default (): JSX.Element => {
 
   return (
     <StyledGrid>
-      {state.error && <strong>{state.error}</strong>}
+      {state.error && <StyledError>{state.error}</StyledError>}
       {state.resultsByPages.length && !state.error
         ? state.resultsByPages.flat()
           .map(({

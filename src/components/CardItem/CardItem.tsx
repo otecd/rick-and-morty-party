@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, {
+  memo,
+  useState,
+  useContext,
+} from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { ReactComponent as CrossIcon } from '../../icons/cross.svg';
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<{ opacity: number }>`
   position: relative;
   padding-bottom: 1rem;
   width: 25%;
   text-align: center;
+  opacity: ${(props): number => props.opacity};
+  transition: opacity 0.15s;
 `;
 const StyledImage = styled.img`
   width: 6rem;
@@ -31,7 +37,7 @@ const StyledCloseButton = styled.button`
   }
 `;
 
-export default ({
+export default memo(({
   id,
   name,
   image,
@@ -41,17 +47,22 @@ export default ({
   image: string | null;
 }): JSX.Element => {
   const { actions } = useContext(FinderStoreContext);
+  const [hidden, hide] = useState(false);
 
   return (
-    <StyledCard>
+    <StyledCard opacity={+!hidden}>
       <StyledImage src={image || ''} />
       <StyledCloseButton
         onClick={(): void => {
-          actions.excludeItem({ id, name, image });
+          hide(true);
+          setTimeout(() => {
+            actions.excludeItem({ id, name, image });
+            hide(false);
+          }, 250);
         }}
       >
         <CrossIcon />
       </StyledCloseButton>
     </StyledCard>
   );
-};
+});

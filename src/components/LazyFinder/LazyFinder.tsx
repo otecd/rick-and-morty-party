@@ -1,4 +1,5 @@
 import React, {
+  memo,
   useEffect,
   useState,
   useContext,
@@ -25,7 +26,7 @@ const StyledInput = styled.input`
   }
 `;
 
-export default ({ dataType, query }: {
+export default memo(({ dataType, query }: {
   dataType: DataType;
   query: GlobalDocumentNode;
 }): JSX.Element => {
@@ -99,4 +100,4 @@ export default ({ dataType, query }: {
       placeholder={FINDER_PLACEHOLDER}
     />
   );
-};
+});
