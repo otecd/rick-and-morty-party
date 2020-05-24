@@ -6,5 +6,11 @@ export const light: DefaultTheme = {
     secondary: '#fff',
   },
 };
+export const dark: DefaultTheme = {
+  colors: {
+    main: '#ccc',
+    secondary: '#222',
+  },
+};
 
-export default { light };
+export default { light, dark };

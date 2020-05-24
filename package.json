@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint ./src/**/*.*",
+    "lint": "eslint ./src/**/*.{ts,tsx}",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generateGqlTypes": "npx apollo schema:download --endpoint=https://rickandmortyapi.com/graphql ./graphql-schema.json && npx apollo codegen:generate --localSchemaFile=./graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/gql-operations/types/graphql-global-types.ts types && rm ./graphql-schema.json",
@@ -124,6 +124,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*.*": "npm run lint"
+    "src/**/*.{ts,tsx}": "npm run lint"
   }
 }

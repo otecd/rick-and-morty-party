@@ -17,14 +17,18 @@ actionHandlers.set(
 );
 actionHandlers.set(
   at.ITEM_EXCLUDED,
-  (state: State, item: Item) => ({
-    ...state,
-    excludedItems: state.excludedItems.concat(item),
-    resultsByPages: state.resultsByPages.map(results => filterItemsWoExcluded(
-      results,
-      state.excludedItems,
-    )),
-  }),
+  (state: State, item: Item) => {
+    const excludedItems = state.excludedItems.concat(item);
+
+    return {
+      ...state,
+      excludedItems,
+      resultsByPages: state.resultsByPages.map(results => filterItemsWoExcluded(
+        results,
+        excludedItems,
+      )),
+    };
+  },
 );
 actionHandlers.set(
   at.RESULTS_UPDATED,

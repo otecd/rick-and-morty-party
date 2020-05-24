@@ -12,6 +12,7 @@ const StyledApp = styled.div`
   align-items: center;
   padding-top: 141px;
   font: inherit;
+  user-select: none;
 `;
 
 export default (): JSX.Element => (
