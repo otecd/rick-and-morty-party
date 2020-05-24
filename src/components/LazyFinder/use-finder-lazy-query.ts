@@ -10,8 +10,8 @@ export default ({ query, errorMessageCb }: {
 } => {
   const [executeQuery, { data }] = useLazyQuery<QueryData, QueryVariables>(query, {
     partialRefetch: true,
-    onError: (error) => {
-      errorMessageCb(error.message || 'Error');
+    onError: () => {
+      errorMessageCb('Not Found. Try to type another name.');
     },
   });
   const doQuery = useCallback(({ page, name }: {
