@@ -69,15 +69,17 @@ export default memo((props: {
           admitMember({ item: props, role: validatedRole });
         }
       }}
+      onTransitionEnd={(): void => {
+        if (hidden) {
+          excludeItem(props);
+          hide(false);
+        }
+      }}
     >
       <StyledImage src={image || ''} />
       <StyledCloseButton
         onClick={(): void => {
           hide(true);
-          setTimeout(() => {
-            excludeItem(props);
-            hide(false);
-          }, 250);
         }}
       >
         <CrossIcon />

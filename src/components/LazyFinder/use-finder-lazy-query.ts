@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
+import { FINDER_ERROR_NOT_FOUND } from '../../const';
 
 export default ({ query, errorMessageCb }: {
   query: GlobalDocumentNode;
@@ -11,7 +12,7 @@ export default ({ query, errorMessageCb }: {
   const [executeQuery, { data }] = useLazyQuery<QueryData, QueryVariables>(query, {
     partialRefetch: true,
     onError: () => {
-      errorMessageCb('Not Found. Try to type another name.');
+      errorMessageCb(FINDER_ERROR_NOT_FOUND);
     },
   });
   const doQuery = useCallback(({ page, name }: {

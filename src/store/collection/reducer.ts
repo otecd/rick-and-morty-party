@@ -15,10 +15,12 @@ actionHandlers.set(
     return {
       ...state,
       excludedItems,
-      itemsByPages: state.itemsByPages.map(results => filterItemsWoExcluded(
-        results,
-        excludedItems,
-      )),
+      itemsByPages: state.itemsByPages
+        .map(results => filterItemsWoExcluded(
+          results,
+          excludedItems,
+        ))
+        .filter(results => results.length),
     };
   },
 );

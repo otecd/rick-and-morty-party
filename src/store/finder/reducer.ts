@@ -12,11 +12,7 @@ actionHandlers.set(
 );
 actionHandlers.set(
   at.ERROR_THROWN,
-  (state: FinderState, message: string) => ({
-    ...state,
-    error: message,
-    resultsByPages: [], // REMOVE
-  }),
+  (state: FinderState, message: string) => ({ ...state, error: message }),
 );
 actionHandlers.set(
   at.ERROR_CLEARED,

@@ -13,6 +13,7 @@ import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
   FINDER_PLACEHOLDER,
+  FINDER_ERROR_NOT_FOUND,
   FINDER_ERROR_NAME_LENGTH_TOO_FEW,
 } from '../../const';
 
@@ -37,6 +38,7 @@ export default memo(({ dataType, query }: {
     nameTyped,
     error,
     name,
+    loading,
   } = finderStore.state;
   const {
     updateName,
@@ -61,7 +63,7 @@ export default memo(({ dataType, query }: {
 
   useEffect(() => {
     if (nameTyped && nameTyped.length > FINDER_MIN_NAME_LENGTH) {
-      if (!timer && !error && (nameTyped !== name || !itemsByPages.length)) {
+      if (!timer && !error && nameTyped !== name) {
         updateName(nameTyped);
         setTimer(setTimeout(() => {
           timer && clearTimeout(timer);
@@ -75,6 +77,11 @@ export default memo(({ dataType, query }: {
   useEffect(() => {
     name && doQuery({ page: 1, name });
   }, [name, doQuery]);
+  useEffect(() => {
+    if ((name === nameTyped) && !loading && !itemsByPages.length) {
+      throwError(FINDER_ERROR_NOT_FOUND);
+    }
+  }, [name, nameTyped, loading, itemsByPages.length, throwError]);
   useEffect(() => {
     if (!error) {
       if (data && name === nameTyped) {
