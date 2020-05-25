@@ -20,6 +20,7 @@ export default (dispatch: Dispatch<ReducerAction>): FinderActions => ({
   }, [dispatch]),
   throwError: useCallback((payload: string): void => {
     dispatch({ type: finderActionTypes.ERROR_THROWN, payload });
+    dispatch({ type: finderActionTypes.NAME_UPDATED, payload: '' });
     dispatch({ type: finderActionTypes.LOADING_ENDED });
   }, [dispatch]),
   clearError: useCallback((): void => {

@@ -76,7 +76,7 @@ export default memo(({ dataType, query }: {
     } else {
       throwErrorAndClearItems(FINDER_ERROR_NAME_LENGTH_TOO_FEW);
     }
-  }, [timer, nameTyped, error, name, itemsByPages.length, updateName, throwErrorAndClearItems]);
+  }, [timer, nameTyped, error, name, updateName, throwErrorAndClearItems]);
   useEffect(() => {
     name && doQuery({ page: 1, name });
   }, [name, doQuery]);
