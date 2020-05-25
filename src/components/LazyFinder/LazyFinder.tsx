@@ -80,17 +80,7 @@ export default memo(({ dataType, query }: {
         }
       }
     }
-  }, [
-    data,
-    dataType,
-    name,
-    nameTyped,
-    resultsByPages,
-    error,
-    stopLoading,
-    doQuery,
-    writeResultsByPage,
-  ]);
+  }, [data, dataType, name, nameTyped, error, stopLoading, doQuery, writeResultsByPage]);
 
   return (
     <StyledInput
