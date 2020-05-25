@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import {
   StoreProvider,
@@ -17,7 +17,7 @@ const StyledApp = styled.div`
   user-select: none;
 `;
 
-export default (): JSX.Element => (
+export default (): ReactElement => (
   <StoreProvider>
     <StyledApp>
       <LazyCharactersFinder />

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, ReactElement } from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
@@ -17,7 +17,7 @@ const StyledError = styled.p`
   color: ${(props): string => props.theme.colors.error};
 `;
 
-export default (): JSX.Element => {
+export default (): ReactElement => {
   const { state: finderState } = useContext(FinderStoreContext);
   const { state: collectionState } = useContext(CollectionStoreContext);
 

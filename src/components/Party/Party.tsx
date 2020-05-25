@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 import Grid from '../Grid/Grid';
 import PartyMember from '../PartyMember/PartyMember';
@@ -13,7 +13,7 @@ const StyledPartyHeading = styled.h2`
 
 export default memo(({ roles }: {
   roles: PartyRole[];
-}): JSX.Element => (
+}): ReactElement => (
   <>
     <StyledPartyHeading>Party</StyledPartyHeading>
     <Grid>

@@ -4,6 +4,7 @@ import React, {
   useState,
   useContext,
   useCallback,
+  ReactElement,
 } from 'react';
 import styled from 'styled-components';
 import useFinderLazyQuery from './use-finder-lazy-query';
@@ -32,7 +33,7 @@ const StyledInput = styled.input`
 export default memo(({ dataType, query }: {
   dataType: DataType;
   query: GlobalDocumentNode;
-}): JSX.Element => {
+}): ReactElement => {
   const finderStore = useContext(FinderStoreContext);
   const {
     nameTyped,

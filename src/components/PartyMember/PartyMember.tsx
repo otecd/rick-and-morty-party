@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 
 export default memo(({ role }: {
   role: PartyRole;
-}): JSX.Element => (
+}): ReactElement => (
   <p>
     {role}
   </p>
