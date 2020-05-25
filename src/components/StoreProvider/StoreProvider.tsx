@@ -1,11 +1,14 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, ReactElement } from 'react';
 import FinderStoreProvider from './FinderStoreProvider';
 import CollectionStoreProvider from './CollectionStoreProvider';
+import PartyStoreProvider from './PartyStoreProvider';
 
-export default ({ children }: PropsWithChildren<{}>): JSX.Element => (
+export default ({ children }: PropsWithChildren<{}>): ReactElement => (
   <FinderStoreProvider>
     <CollectionStoreProvider>
-      {children}
+      <PartyStoreProvider>
+        {children}
+      </PartyStoreProvider>
     </CollectionStoreProvider>
   </FinderStoreProvider>
 );

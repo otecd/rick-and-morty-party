@@ -26,10 +26,7 @@ declare interface CollectionActions {
 }
 
 declare interface PartyState {
-  membersByRoles: {
-    item: Item;
-    role: PartyRole;
-  }[];
+  membersByRoles: Map<PartyRole, Item | null>;
 }
 
 declare interface PartyActions {

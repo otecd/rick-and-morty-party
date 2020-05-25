@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import LazyFinder from './LazyFinder';
 import { CHARACTERS } from '../../gql-operations/queries';
 
-export default (): JSX.Element => (
+export default (): ReactElement => (
   <LazyFinder dataType="characters" query={CHARACTERS} />
 );

@@ -2,6 +2,7 @@ import React, {
   useReducer,
   Dispatch,
   PropsWithChildren,
+  ReactElement,
 } from 'react';
 import {
   CollectionStoreContext,
@@ -10,7 +11,7 @@ import {
   collectionActionsBuilder,
 } from '../../store/collection';
 
-export default ({ children }: PropsWithChildren<{}>): JSX.Element => {
+export default ({ children }: PropsWithChildren<{}>): ReactElement => {
   const [state, dispatch]: [
     CollectionState,
     Dispatch<ReducerAction>

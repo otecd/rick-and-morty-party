@@ -2,6 +2,7 @@ import React, {
   useReducer,
   Dispatch,
   PropsWithChildren,
+  ReactElement,
 } from 'react';
 import {
   FinderStoreContext,
@@ -10,7 +11,7 @@ import {
   finderActionsBuilder,
 } from '../../store/finder';
 
-export default ({ children }: PropsWithChildren<{}>): JSX.Element => {
+export default ({ children }: PropsWithChildren<{}>): ReactElement => {
   const [state, dispatch]: [
     FinderState,
     Dispatch<ReducerAction>

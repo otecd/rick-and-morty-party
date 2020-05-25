@@ -34,7 +34,7 @@ const apolloClient = new ApolloClient({
 ReactDOM.render(
   <StrictMode>
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={styleThemes.dark}>
+      <ThemeProvider theme={styleThemes.light}>
         <GlobalStyle />
         <App />
       </ThemeProvider>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import {
   StoreProvider,
   LazyCharactersFinder,
-  ItemsGrid,
+  CharactersCollection,
+  Party,
 } from './components';
+import { NAME_MORTY, NAME_RICK } from './const';
 
 const StyledApp = styled.div`
   display: flex;
@@ -15,11 +17,12 @@ const StyledApp = styled.div`
   user-select: none;
 `;
 
-export default (): JSX.Element => (
+export default (): ReactElement => (
   <StoreProvider>
     <StyledApp>
       <LazyCharactersFinder />
-      <ItemsGrid />
+      <CharactersCollection />
+      <Party roles={[NAME_RICK, NAME_MORTY]} />
     </StyledApp>
   </StoreProvider>
 );

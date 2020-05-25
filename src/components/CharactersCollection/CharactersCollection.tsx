@@ -1,22 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, ReactElement } from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
-import CardItem from '../CardItem/CardItem';
+import Character from '../Character/Character';
+import Grid from '../Grid/Grid';
 
-const StyledGrid = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 840px;
-  padding-top: 1rem;
-  font: inherit;
-
-  @media (max-width: 820px) {
-    width: 85%;
-  }
-`;
 const StyledOverlay = styled.div`
   position: absolute;
   width: 100%;
@@ -29,12 +17,12 @@ const StyledError = styled.p`
   color: ${(props): string => props.theme.colors.error};
 `;
 
-export default (): JSX.Element => {
+export default (): ReactElement => {
   const { state: finderState } = useContext(FinderStoreContext);
   const { state: collectionState } = useContext(CollectionStoreContext);
 
   return (
-    <StyledGrid>
+    <Grid>
       {finderState.error && <StyledError>{finderState.error}</StyledError>}
       {collectionState.itemsByPages.length && !finderState.error
         ? collectionState.itemsByPages.flat()
@@ -43,8 +31,8 @@ export default (): JSX.Element => {
             name,
             image,
           }, i) => (
-            <CardItem
-              key={`item${123 + i}`}
+            <Character
+              key={`item${Date.now() + i}`}
               id={id}
               name={name}
               image={image}
@@ -52,6 +40,6 @@ export default (): JSX.Element => {
           ))
         : null}
       {finderState.loading ? (<StyledOverlay />) : null}
-    </StyledGrid>
+    </Grid>
   );
 };

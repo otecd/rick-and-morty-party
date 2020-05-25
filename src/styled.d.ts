@@ -5,9 +5,15 @@ declare module 'styled-components' {
     colors: {
       main: string;
       secondary: string;
-      shadowCard: string;
+      cardPlaceholder: string;
       error: string;
       overlay: string;
+    };
+    sizes: {
+      cardImage: {
+        width: string;
+        height: string;
+      };
     };
   }
 }

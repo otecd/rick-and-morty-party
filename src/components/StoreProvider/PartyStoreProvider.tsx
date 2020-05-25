@@ -2,6 +2,7 @@ import React, {
   useReducer,
   Dispatch,
   PropsWithChildren,
+  ReactElement,
 } from 'react';
 import {
   PartyStoreContext,
@@ -10,7 +11,7 @@ import {
   partyActionsBuilder,
 } from '../../store/party';
 
-export default ({ children }: PropsWithChildren<{}>): JSX.Element => {
+export default ({ children }: PropsWithChildren<{}>): ReactElement => {
   const [state, dispatch]: [
     PartyState,
     Dispatch<ReducerAction>
