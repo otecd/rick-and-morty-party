@@ -12,8 +12,8 @@ export const light: DefaultTheme = {
   },
   sizes: {
     cardImage: {
-      width: '6rem',
-      height: '7.33rem',
+      width: '180px',
+      height: '220px',
     },
   },
 };

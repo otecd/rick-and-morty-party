@@ -46,10 +46,27 @@ const StyledApp = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding-top: 141px;
+  min-height: 100vh;
+  align-items: center;
   font: inherit;
   user-select: none;
+`;
+const StyledFooter = styled.footer`
+  font-size: .4rem;
+  text-align: center;
+
+  & > p {
+    margin: 0;
+  }
+
+  & a {
+    color: ${(props): string => props.theme.colors.main};
+  }
+
+  @media (max-width: 820px) {
+    font-size: .5rem;
+  }
 `;
 const apolloClient = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql'
@@ -71,6 +88,22 @@ export default (): ReactElement => {
           <LazyCharactersFinder />
           <CharactersCollection />
           <Party roles={[NAME_RICK, NAME_MORTY]} />
+          <StyledFooter>
+            <p>
+              &copy;
+              {' 2020 '}
+              <a href="https://github.com/papadima" target="_blank" rel="noopener noreferrer">papadima</a>
+              .
+            </p>
+            <p>
+              {'Icons made by '}
+              <a href="https://www.flaticon.com/free-icon/sunny_1420705?term=mode&page=2&position=75" title="monkik" target="_blank" rel="noopener noreferrer">monkik</a>
+              {', '}
+              <a href="https://icon54.com/" title="Pixel perfect" target="_blank" rel="noopener noreferrer">Pixel perfect</a>
+              {' from '}
+              <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer"> www.flaticon.com</a>
+            </p>
+          </StyledFooter>
         </StyledApp>
       </ThemeProvider>
     </ApolloProvider>

@@ -13,19 +13,19 @@ const StyledWrapper = styled.div<{ mode: string }>`
   position: fixed;
   display: flex;
   justify-content: ${(props): string => (props.mode === APP_THEME_LIGHT ? 'flex-start' : 'flex-end')};
-  top: 1rem;
-  right: 1rem;
-  width: 2rem;
-  height: .8rem;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 24px;
   background-color: ${(props): string => props.theme.colors.themeSelector.background};
   border: 2px solid transparent;
-  border-radius: 1rem;
+  border-radius: 30px;
 `;
 const StyledButton = styled.button<{ mode: string }>`
   position: relative;
   display: flex;
-  width: .8rem;
-  height: .8rem;
+  width: 24px;
+  height: 24px;
   background-color: ${(props): string => props.theme.colors.secondary};
   border-radius: 50%;
   color: ${(props): string => props.theme.colors.main};
@@ -45,7 +45,7 @@ export default memo((): ReactElement => {
   return (
     <StyledWrapper
       mode={appStoreState.theme}
-      onClick={() => {
+      onClick={(): void => {
         appStoreActions.toggleTheme();
       }}
     >
