@@ -1,7 +1,12 @@
-import React, { memo, ReactElement } from 'react';
+import React, {
+  memo,
+  useContext,
+  ReactElement,
+} from 'react';
 import styled from 'styled-components';
 import Grid from '../Grid/Grid';
 import PartyMember from '../PartyMember/PartyMember';
+import { PartyStoreContext } from '../../store/party';
 
 const StyledPartyHeading = styled.h2`
   padding-top: calc(2rem + 8px);
@@ -13,11 +18,21 @@ const StyledPartyHeading = styled.h2`
 
 export default memo(({ roles }: {
   roles: PartyRole[];
-}): ReactElement => (
-  <>
-    <StyledPartyHeading>Party</StyledPartyHeading>
-    <Grid>
-      {roles.map(role => (<PartyMember key={role} role={role} />))}
-    </Grid>
-  </>
-));
+}): ReactElement => {
+  const { state: partyState } = useContext(PartyStoreContext);
+
+  return (
+    <>
+      <StyledPartyHeading>Party</StyledPartyHeading>
+      <Grid>
+        {roles.map(role => (
+          <PartyMember
+            key={role}
+            role={role}
+            image={partyState.membersByRoles.get(role)?.image}
+          />
+        ))}
+      </Grid>
+    </>
+  );
+});

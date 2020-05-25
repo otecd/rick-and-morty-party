@@ -4,18 +4,13 @@ const actionHandlers = new Map();
 
 actionHandlers.set(
   at.MEMBER_ADMITED,
-  (state: PartyState, member: {
+  (state: PartyState, { item, role }: {
     item: Item;
     role: PartyRole;
   }) => {
-    const memberWithRoleIndex = state.membersByRoles.findIndex(({ role }) => role === member.role);
-    const membersByRoles = state.membersByRoles.slice();
+    const membersByRoles = new Map(state.membersByRoles);
 
-    if (memberWithRoleIndex === -1) {
-      membersByRoles.push(member);
-    } else {
-      membersByRoles[memberWithRoleIndex] = member;
-    }
+    membersByRoles.set(role, item);
 
     return { ...state, membersByRoles };
   },

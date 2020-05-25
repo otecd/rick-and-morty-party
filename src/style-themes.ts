@@ -21,6 +21,7 @@ export const dark: DefaultTheme = {
     ...light.colors,
     main: '#ccc',
     secondary: '#222',
+    cardPlaceholder: '#383838',
     error: '#666',
     overlay: 'rgba(34, 34, 34, 0.5)',
   },

@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 
 export default memo(({ role, image }: {
   role: PartyRole;
-  image?: string;
+  image?: string | null;
 }): ReactElement => (
   <Card
     image={image}
