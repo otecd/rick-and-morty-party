@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, ReactElement } from 'react';
-import AppStoreProvider from './AppStoreProvider';
-import FinderStoreProvider from './FinderStoreProvider';
-import CollectionStoreProvider from './CollectionStoreProvider';
-import PartyStoreProvider from './PartyStoreProvider';
+import { AppStoreProvider } from './app';
+import { FinderStoreProvider } from './finder';
+import { CollectionStoreProvider } from './collection';
+import { PartyStoreProvider } from './party';
 
 export default ({ children }: PropsWithChildren<{}>): ReactElement => (
   <AppStoreProvider>

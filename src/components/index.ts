@@ -1,4 +1,3 @@
-import StoreProvider from './StoreProvider/StoreProvider';
 import LazyFinder from './LazyFinder/LazyFinder';
 import Grid from './Grid/Grid';
 import LazyCharactersFinder from './LazyFinder/LazyCharactersFinder';
@@ -9,7 +8,6 @@ import PartyMember from './PartyMember/PartyMember';
 import ThemeSelector from './ThemeSelector/ThemeSelector';
 
 export {
-  StoreProvider,
   LazyFinder,
   Grid,
   LazyCharactersFinder,
@@ -20,7 +18,6 @@ export {
   ThemeSelector,
 };
 export default {
-  StoreProvider,
   LazyFinder,
   Grid,
   LazyCharactersFinder,

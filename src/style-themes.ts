@@ -8,6 +8,7 @@ export const light: DefaultTheme = {
     error: '#999',
     overlay: 'rgba(255, 255, 255, 0.5)',
     themeSelector: { background: 'rgba(20, 20, 20, 0.2)' },
+    input: { background: 'rgba(255, 255, 255, 0.5)' },
   },
   sizes: {
     cardImage: {
@@ -25,6 +26,7 @@ export const dark: DefaultTheme = {
     cardPlaceholder: '#444',
     error: '#666',
     overlay: 'rgba(34, 34, 34, 0.5)',
+    // input: { background: '#555' },
   },
 };
 

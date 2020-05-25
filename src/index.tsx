@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { StoreProvider } from './components';
+import StoreProvider from './store/Provider';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
