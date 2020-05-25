@@ -3,10 +3,12 @@ import React, {
   useEffect,
   useState,
   useContext,
+  useCallback,
 } from 'react';
 import styled from 'styled-components';
 import useFinderLazyQuery from './use-finder-lazy-query';
 import { FinderStoreContext } from '../../store/finder';
+import { CollectionStoreContext } from '../../store/collection';
 import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
@@ -30,26 +32,36 @@ export default memo(({ dataType, query }: {
   dataType: DataType;
   query: GlobalDocumentNode;
 }): JSX.Element => {
-  const { state, actions } = useContext(FinderStoreContext);
+  const finderStore = useContext(FinderStoreContext);
   const {
     nameTyped,
     error,
     name,
-    resultsByPages,
-  } = state;
+  } = finderStore.state;
   const {
     updateName,
     updateNameTyped,
-    writeResultsByPage,
     stopLoading,
     throwError,
-  } = actions;
-  const { doQuery, data } = useFinderLazyQuery({ query, errorMessageCb: throwError });
+  } = finderStore.actions;
+  const collectionStore = useContext(CollectionStoreContext);
+  const {
+    itemsByPages,
+  } = collectionStore.state;
+  const {
+    writeItemsByPage,
+    clearItems,
+  } = collectionStore.actions;
+  const throwErrorAndClearItems = useCallback((message: string) => {
+    throwError(message);
+    clearItems();
+  }, [throwError, clearItems]);
+  const { doQuery, data } = useFinderLazyQuery({ query, errorMessageCb: throwErrorAndClearItems });
   const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
     if (nameTyped && nameTyped.length > FINDER_MIN_NAME_LENGTH) {
-      if (!timer && !error && (nameTyped !== name || !resultsByPages.length)) {
+      if (!timer && !error && (nameTyped !== name || !itemsByPages.length)) {
         updateName(nameTyped);
         setTimer(setTimeout(() => {
           timer && clearTimeout(timer);
@@ -57,9 +69,9 @@ export default memo(({ dataType, query }: {
         }, FINDER_REQUESTS_INTERVAL));
       }
     } else {
-      throwError(FINDER_ERROR_NAME_LENGTH_TOO_FEW);
+      throwErrorAndClearItems(FINDER_ERROR_NAME_LENGTH_TOO_FEW);
     }
-  }, [timer, nameTyped, error, name, resultsByPages.length, updateName, throwError]);
+  }, [timer, nameTyped, error, name, itemsByPages.length, updateName, throwErrorAndClearItems]);
   useEffect(() => {
     name && doQuery({ page: 1, name });
   }, [name, doQuery]);
@@ -71,7 +83,7 @@ export default memo(({ dataType, query }: {
         const currentPage = 1 + (prev || 0);
 
         if (pages && results) {
-          writeResultsByPage({ currentPage, results });
+          writeItemsByPage({ currentPage, results });
           if (currentPage < pages) {
             doQuery({ page: currentPage + 1, name });
           } else {
@@ -80,7 +92,7 @@ export default memo(({ dataType, query }: {
         }
       }
     }
-  }, [data, dataType, name, nameTyped, error, stopLoading, doQuery, writeResultsByPage]);
+  }, [data, dataType, name, nameTyped, error, stopLoading, doQuery, writeItemsByPage]);
 
   return (
     <StyledInput

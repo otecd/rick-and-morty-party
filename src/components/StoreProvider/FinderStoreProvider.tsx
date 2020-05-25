@@ -11,13 +11,15 @@ import {
 } from '../../store/finder';
 
 export default ({ children }: PropsWithChildren<{}>): JSX.Element => {
-  const [state, dispatch]: [State, Dispatch<ReducerAction>] = useReducer(
-    finderReducer,
-    finderInitialState
-  );
+  const [state, dispatch]: [
+    FinderState,
+    Dispatch<ReducerAction>
+  ] = useReducer(finderReducer, finderInitialState);
 
   return (
-    <FinderStoreContext.Provider value={{ state, actions: finderActionsBuilder(dispatch) }}>
+    <FinderStoreContext.Provider
+      value={{ state, actions: finderActionsBuilder(dispatch) }}
+    >
       {children}
     </FinderStoreContext.Provider>
   );

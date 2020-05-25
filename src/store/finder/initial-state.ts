@@ -1,8 +1,6 @@
-export default ((): State => ({
+export default ((): FinderState => ({
   name: '',
   nameTyped: '',
-  excludedItems: [],
-  resultsByPages: [],
   error: null,
   loading: false,
 }))();

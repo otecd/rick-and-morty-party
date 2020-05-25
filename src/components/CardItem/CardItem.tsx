@@ -2,10 +2,13 @@ import React, {
   memo,
   useState,
   useContext,
+  useCallback,
 } from 'react';
 import styled from 'styled-components';
-import { FinderStoreContext } from '../../store/finder';
+import { CollectionStoreContext } from '../../store/collection';
+import { PartyStoreContext } from '../../store/party';
 import { ReactComponent as CrossIcon } from '../../icons/cross.svg';
+import { NAME_MORTY, NAME_RICK } from '../../const';
 
 const StyledCard = styled.div<{ opacity: number }>`
   position: relative;
@@ -37,26 +40,42 @@ const StyledCloseButton = styled.button`
   }
 `;
 
-export default memo(({
-  id,
-  name,
-  image,
-}: {
+export default memo((props: {
   id: string | null;
   name: string | null;
   image: string | null;
 }): JSX.Element => {
-  const { actions } = useContext(FinderStoreContext);
+  const {
+    name,
+    image,
+  } = props;
+  const { actions: collectionActions } = useContext(CollectionStoreContext);
+  const { actions: partyActions } = useContext(PartyStoreContext);
   const [hidden, hide] = useState(false);
+  const validateItemForParty = useCallback(() => [
+    NAME_RICK,
+    NAME_MORTY,
+  ].find(roleName => name?.includes(roleName)), [name]);
+  const { excludeItem } = collectionActions;
+  const { admitMember } = partyActions;
 
   return (
-    <StyledCard opacity={+!hidden}>
+    <StyledCard
+      opacity={+!hidden}
+      onClick={(): void => {
+        const validatedRole = validateItemForParty();
+
+        if (validatedRole) {
+          admitMember({ item: props, role: validatedRole });
+        }
+      }}
+    >
       <StyledImage src={image || ''} />
       <StyledCloseButton
         onClick={(): void => {
           hide(true);
           setTimeout(() => {
-            actions.excludeItem({ id, name, image });
+            excludeItem(props);
             hide(false);
           }, 250);
         }}

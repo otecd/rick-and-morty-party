@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
+import { CollectionStoreContext } from '../../store/collection';
 import CardItem from '../CardItem/CardItem';
 
 const StyledGrid = styled.div`
@@ -29,13 +30,14 @@ const StyledError = styled.p`
 `;
 
 export default (): JSX.Element => {
-  const { state } = useContext(FinderStoreContext);
+  const { state: finderState } = useContext(FinderStoreContext);
+  const { state: collectionState } = useContext(CollectionStoreContext);
 
   return (
     <StyledGrid>
-      {state.error && <StyledError>{state.error}</StyledError>}
-      {state.resultsByPages.length && !state.error
-        ? state.resultsByPages.flat()
+      {finderState.error && <StyledError>{finderState.error}</StyledError>}
+      {collectionState.itemsByPages.length && !finderState.error
+        ? collectionState.itemsByPages.flat()
           .map(({
             id,
             name,
@@ -49,7 +51,7 @@ export default (): JSX.Element => {
             />
           ))
         : null}
-      {state.loading ? (<StyledOverlay />) : null}
+      {finderState.loading ? (<StyledOverlay />) : null}
     </StyledGrid>
   );
 };

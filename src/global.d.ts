@@ -4,6 +4,7 @@ import {
   CharactersVariables,
   Characters_characters_results,
 } from './gql-operations/types/Characters';
+import { NAME_MORTY, NAME_RICK } from './const';
 
 declare global {
   type Item = Characters_characters_results;
@@ -11,6 +12,7 @@ declare global {
   type QueryVariables = CharactersVariables;
   type GlobalDocumentNode = DocumentNode;
   type DataType = 'characters';
+  type PartyRole = NAME_MORTY | NAME_RICK;
 
   interface ReducerAction {
     type: string;
