@@ -7,6 +7,7 @@ export const light: DefaultTheme = {
     cardPlaceholder: '#dadada',
     error: '#999',
     overlay: 'rgba(255, 255, 255, 0.5)',
+    themeSelector: { background: 'rgba(20, 20, 20, 0.2)' },
   },
   sizes: {
     cardImage: {
@@ -20,8 +21,8 @@ export const dark: DefaultTheme = {
   colors: {
     ...light.colors,
     main: '#ccc',
-    secondary: '#222',
-    cardPlaceholder: '#383838',
+    secondary: '#333',
+    cardPlaceholder: '#444',
     error: '#666',
     overlay: 'rgba(34, 34, 34, 0.5)',
   },

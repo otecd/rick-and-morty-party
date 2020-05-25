@@ -1,10 +1,16 @@
+declare interface AppState {
+  theme: AppTheme;
+}
+declare interface AppActions {
+  toggleTheme: Function;
+}
+
 declare interface FinderState {
   name: string;
   nameTyped: string;
   error: string | null;
   loading: boolean;
 }
-
 declare interface FinderActions {
   updateName: Function;
   updateNameTyped: Function;
@@ -18,7 +24,6 @@ declare interface CollectionState {
   excludedItems: Item[];
   itemsByPages: Item[][];
 }
-
 declare interface CollectionActions {
   writeItemsByPage: Function;
   excludeItem: Function;
@@ -28,7 +33,6 @@ declare interface CollectionActions {
 declare interface PartyState {
   membersByRoles: Map<PartyRole, Item | null>;
 }
-
 declare interface PartyActions {
   admitMember: Function;
 }

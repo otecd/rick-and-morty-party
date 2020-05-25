@@ -8,6 +8,9 @@ declare module 'styled-components' {
       cardPlaceholder: string;
       error: string;
       overlay: string;
+      themeSelector: {
+        background: string;
+      };
     };
     sizes: {
       cardImage: {

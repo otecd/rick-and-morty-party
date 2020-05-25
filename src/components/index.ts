@@ -6,6 +6,7 @@ import CharactersCollection from './CharactersCollection/CharactersCollection';
 import Character from './Character/Character';
 import Party from './Party/Party';
 import PartyMember from './PartyMember/PartyMember';
+import ThemeSelector from './ThemeSelector/ThemeSelector';
 
 export {
   StoreProvider,
@@ -16,6 +17,7 @@ export {
   Character,
   Party,
   PartyMember,
+  ThemeSelector,
 };
 export default {
   StoreProvider,
@@ -26,4 +28,5 @@ export default {
   Character,
   Party,
   PartyMember,
+  ThemeSelector,
 };
