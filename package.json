@@ -1,6 +1,6 @@
 {
   "name": "rick-and-morty-party",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "node": ">=12 <13"
   },
@@ -29,8 +29,7 @@
     "lint": "eslint ./src/**/*.{ts,tsx}",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generateGqlTypes": "npx apollo schema:download --endpoint=https://rickandmortyapi.com/graphql ./graphql-schema.json && npx apollo codegen:generate --localSchemaFile=./graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/gql-operations/types/graphql-global-types.ts types",
-    "postinstall": "npm run generateGqlTypes"
+    "generateGqlTypes": "npx apollo schema:download --endpoint=https://rickandmortyapi.com/graphql ./graphql-schema.json && npx apollo codegen:generate --localSchemaFile=./graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/gql-operations/types/graphql-global-types.ts types"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
