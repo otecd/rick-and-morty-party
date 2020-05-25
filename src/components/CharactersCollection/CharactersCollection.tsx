@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
-import CardItem from '../CardItem/CardItem';
+import Character from '../Character/Character';
 import Grid from '../Grid/Grid';
 
 const StyledOverlay = styled.div`
@@ -31,8 +31,8 @@ export default (): JSX.Element => {
             name,
             image,
           }, i) => (
-            <CardItem
-              key={`item${123 + i}`}
+            <Character
+              key={`item${Date.now() + i}`}
               id={id}
               name={name}
               image={image}
