@@ -35,10 +35,7 @@ export default memo((props: {
   name: string | null;
   image: string | null;
 }): ReactElement => {
-  const {
-    name,
-    image,
-  } = props;
+  const { name, image } = props;
   const { actions: collectionActions } = useContext(CollectionStoreContext);
   const { actions: partyActions } = useContext(PartyStoreContext);
   const [hidden, hide] = useState(false);
@@ -52,6 +49,7 @@ export default memo((props: {
   return (
     <Card
       image={image}
+      placeholder={name || ''}
       opacity={+!hidden}
       onClick={(): void => {
         const validatedRole = validateItemForParty();

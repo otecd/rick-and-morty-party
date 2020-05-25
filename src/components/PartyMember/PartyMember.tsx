@@ -1,9 +1,12 @@
 import React, { memo, ReactElement } from 'react';
+import Card from '../Card/Card';
 
-export default memo(({ role }: {
+export default memo(({ role, image }: {
   role: PartyRole;
+  image?: string;
 }): ReactElement => (
-  <p>
-    {role}
-  </p>
+  <Card
+    image={image}
+    placeholder={role}
+  />
 ));
