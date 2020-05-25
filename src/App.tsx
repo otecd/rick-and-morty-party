@@ -4,7 +4,9 @@ import {
   StoreProvider,
   LazyCharactersFinder,
   ItemsGrid,
+  Party,
 } from './components';
+import { NAME_MORTY, NAME_RICK } from './const';
 
 const StyledApp = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ export default (): JSX.Element => (
     <StyledApp>
       <LazyCharactersFinder />
       <ItemsGrid />
+      <Party roles={[NAME_RICK, NAME_MORTY]} />
     </StyledApp>
   </StoreProvider>
 );
