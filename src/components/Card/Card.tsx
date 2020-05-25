@@ -10,11 +10,15 @@ import CardPlaceholder from './CardPlaceholder';
 
 const StyledCard = styled.div<{ opacity: number }>`
   position: relative;
-  padding-bottom: 1rem;
-  width: 25%;
+  padding: 0 0.5rem 1rem;
   text-align: center;
   opacity: ${(props): number => props.opacity};
   transition: opacity 0.15s;
+
+  & > svg {
+    height: inherit;
+    width: inherit;
+  }
 `;
 
 export default memo(({

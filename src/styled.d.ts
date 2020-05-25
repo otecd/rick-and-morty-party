@@ -1,4 +1,5 @@
 import 'styled-components';
+import { StoreReaderConfig } from 'apollo-boost';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -8,6 +9,12 @@ declare module 'styled-components' {
       cardPlaceholder: string;
       error: string;
       overlay: string;
+      themeSelector: {
+        background: string;
+      };
+      input: {
+        background: string;
+      };
     };
     sizes: {
       cardImage: {

@@ -9,8 +9,8 @@ import styled from 'styled-components';
 import Card from '../Card/Card';
 import { CollectionStoreContext } from '../../store/collection';
 import { PartyStoreContext } from '../../store/party';
-import { ReactComponent as CrossIcon } from '../../icons/cross.svg';
 import { NAME_MORTY, NAME_RICK } from '../../const';
+import { ReactComponent as CrossIcon } from '../../icons/cross.svg';
 
 const StyledCloseButton = styled.button`
   position: absolute;

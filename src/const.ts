@@ -1,3 +1,5 @@
+export const APP_THEME_LIGHT = 'light';
+export const APP_THEME_DARK = 'dark';
 export const FINDER_REQUESTS_INTERVAL = 300;
 export const FINDER_MIN_NAME_LENGTH = 2;
 export const FINDER_PLACEHOLDER = 'Type a name here';

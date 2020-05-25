@@ -6,6 +6,7 @@ import {
 } from './gql-operations/types/Characters';
 
 declare global {
+  type AppTheme = 'light' | 'dark';
   type Item = Characters_characters_results;
   type QueryData = Characters | undefined;
   type QueryVariables = CharactersVariables;

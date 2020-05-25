@@ -24,6 +24,8 @@ const StyledInput = styled.input`
   font: inherit;
   width: 750px;
   padding: 0.7rem 0.9rem;
+  outline: none;
+  background-color: ${(props): string => props.theme.colors.input.background};
 
   @media (max-width: 820px) {
     width: 85%;
