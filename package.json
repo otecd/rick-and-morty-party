@@ -1,28 +1,104 @@
 {
   "name": "rick-and-morty-party",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/graphql": "^14.5.0",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.41",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.0",
+    "apollo-boost": "^0.4.9",
+    "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "styled-components": "^5.1.0",
     "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint ./src/**/*.{ts,tsx}",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generateGqlTypes": "npx apollo schema:download --endpoint=https://rickandmortyapi.com/graphql ./graphql-schema.json && npx apollo codegen:generate --localSchemaFile=./graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/gql-operations/types/graphql-global-types.ts types && rm ./graphql-schema.json",
+    "postinstall": "npm run generateGqlTypes"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "extends": [
+      "airbnb",
+      "react-app",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "typescript": {}
+      }
+    },
+    "rules": {
+      "react/jsx-filename-extension": [
+        2,
+        {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      ],
+      "@typescript-eslint/camelcase": [
+        2,
+        {
+          "allow": [
+            "^Characters_"
+          ]
+        }
+      ],
+      "spaced-comment": [
+        2,
+        "always",
+        {
+          "markers": [
+            "/"
+          ]
+        }
+      ],
+      "import/extensions": [
+        0
+      ],
+      "arrow-parens": [
+        2,
+        "as-needed",
+        {
+          "requireForBlockBody": true
+        }
+      ],
+      "comma-dangle": [
+        2,
+        "only-multiline"
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -35,5 +111,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --no-stash"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": "npm run lint"
   }
 }
