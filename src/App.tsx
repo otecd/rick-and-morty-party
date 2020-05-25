@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   StoreProvider,
   LazyCharactersFinder,
-  ItemsGrid,
+  CharactersCollection,
   Party,
 } from './components';
 import { NAME_MORTY, NAME_RICK } from './const';
@@ -21,7 +21,7 @@ export default (): JSX.Element => (
   <StoreProvider>
     <StyledApp>
       <LazyCharactersFinder />
-      <ItemsGrid />
+      <CharactersCollection />
       <Party roles={[NAME_RICK, NAME_MORTY]} />
     </StyledApp>
   </StoreProvider>

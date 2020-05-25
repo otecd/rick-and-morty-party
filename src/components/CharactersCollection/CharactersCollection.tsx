@@ -3,20 +3,8 @@ import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
 import CardItem from '../CardItem/CardItem';
+import Grid from '../Grid/Grid';
 
-const StyledGrid = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 840px;
-  padding-top: 1rem;
-  font: inherit;
-
-  @media (max-width: 820px) {
-    width: 85%;
-  }
-`;
 const StyledOverlay = styled.div`
   position: absolute;
   width: 100%;
@@ -34,7 +22,7 @@ export default (): JSX.Element => {
   const { state: collectionState } = useContext(CollectionStoreContext);
 
   return (
-    <StyledGrid>
+    <Grid>
       {finderState.error && <StyledError>{finderState.error}</StyledError>}
       {collectionState.itemsByPages.length && !finderState.error
         ? collectionState.itemsByPages.flat()
@@ -52,6 +40,6 @@ export default (): JSX.Element => {
           ))
         : null}
       {finderState.loading ? (<StyledOverlay />) : null}
-    </StyledGrid>
+    </Grid>
   );
 };

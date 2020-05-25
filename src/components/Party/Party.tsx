@@ -4,7 +4,7 @@ import Grid from '../Grid/Grid';
 import PartyMember from '../PartyMember/PartyMember';
 
 const StyledPartyHeading = styled.h2`
-  padding-top: calc(3rem + 8px);
+  padding-top: calc(2rem + 8px);
   margin: 0;
   font: inherit;
   font-weight: 700;
@@ -17,7 +17,7 @@ export default memo(({ roles }: {
   <>
     <StyledPartyHeading>Party</StyledPartyHeading>
     <Grid>
-      {roles.map(role => (<PartyMember role={role} />))}
+      {roles.map(role => (<PartyMember key={role} role={role} />))}
     </Grid>
   </>
 ));
