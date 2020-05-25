@@ -1,29 +1,24 @@
 import React, {
+  memo,
   useEffect,
   useState,
   useContext,
+  useCallback,
 } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import { StoreContext as FinderStoreContext, actionTypes } from '../../store/finder';
+import useFinderLazyQuery from './use-finder-lazy-query';
+import { FinderStoreContext } from '../../store/finder';
+import { CollectionStoreContext } from '../../store/collection';
 import {
   FINDER_REQUESTS_INTERVAL,
   FINDER_MIN_NAME_LENGTH,
   FINDER_PLACEHOLDER,
+  FINDER_ERROR_NOT_FOUND,
   FINDER_ERROR_NAME_LENGTH_TOO_FEW,
 } from '../../const';
 
-interface Props {
-  onCompleted?: (resultsByPages: Item[][]) => void;
-  onError?: (error: Error) => void;
-  onLoading?: Function;
-  excludedItems: Item[];
-  dataType: DataType;
-  query: GlobalDocumentNode;
-}
-
 const StyledInput = styled.input`
-  border: 1px solid #A0A0A0;
+  border: 2px solid #A0A0A0;
   text-transform: uppercase;
   font: inherit;
   width: 750px;
@@ -33,89 +28,85 @@ const StyledInput = styled.input`
     width: 85%;
   }
 `;
-const {
-  UPDATE_NAME,
-  UPDATE_EXCLUDED_ITEMS,
-  WRITE_RESULTS_BY_PAGE,
-} = actionTypes;
 
-export default (props: Props): JSX.Element => {
+export default memo(({ dataType, query }: {
+  dataType: DataType;
+  query: GlobalDocumentNode;
+}): JSX.Element => {
+  const finderStore = useContext(FinderStoreContext);
   const {
-    excludedItems = [],
-    onCompleted,
-    onError,
-    onLoading,
-    dataType,
-    query,
-  } = props;
-  const { state, dispatch } = useContext(FinderStoreContext);
-  const [doQuery, { loading, data }] = useLazyQuery<QueryData, QueryVariables>(query, {
-    onError,
-    partialRefetch: true,
-  });
-  const [wait, setWait] = useState<boolean>(false);
+    nameTyped,
+    error,
+    name,
+    loading,
+  } = finderStore.state;
+  const {
+    updateName,
+    updateNameTyped,
+    stopLoading,
+    throwError,
+  } = finderStore.actions;
+  const collectionStore = useContext(CollectionStoreContext);
+  const {
+    itemsByPages,
+  } = collectionStore.state;
+  const {
+    writeItemsByPage,
+    clearItems,
+  } = collectionStore.actions;
+  const throwErrorAndClearItems = useCallback((message: string) => {
+    throwError(message);
+    clearItems();
+  }, [throwError, clearItems]);
+  const { doQuery, data } = useFinderLazyQuery({ query, errorMessageCb: throwErrorAndClearItems });
   const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
-    dispatch({ type: UPDATE_EXCLUDED_ITEMS, payload: excludedItems });
-  }, [dispatch, excludedItems]);
-  useEffect(() => {
-    if (state.name && state.name.length > FINDER_MIN_NAME_LENGTH) {
-      setWait(true);
+    if (nameTyped && nameTyped.length > FINDER_MIN_NAME_LENGTH) {
+      if (!timer && !error && nameTyped !== name) {
+        updateName(nameTyped);
+        setTimer(setTimeout(() => {
+          timer && clearTimeout(timer);
+          setTimer(null);
+        }, FINDER_REQUESTS_INTERVAL));
+      }
     } else {
-      setWait(false);
-      onError && onError(new Error(FINDER_ERROR_NAME_LENGTH_TOO_FEW));
+      throwErrorAndClearItems(FINDER_ERROR_NAME_LENGTH_TOO_FEW);
     }
-  }, [dispatch, onError, state.name]);
+  }, [timer, nameTyped, error, name, itemsByPages.length, updateName, throwErrorAndClearItems]);
   useEffect(() => {
-    if (onLoading && loading) {
-      onLoading();
+    name && doQuery({ page: 1, name });
+  }, [name, doQuery]);
+  useEffect(() => {
+    if ((name === nameTyped) && !loading && !itemsByPages.length) {
+      throwError(FINDER_ERROR_NOT_FOUND);
     }
-  }, [onLoading, loading]);
+  }, [name, nameTyped, loading, itemsByPages.length, throwError]);
   useEffect(() => {
-    if (!wait && data) {
-      const { info, results } = data[dataType] || {};
-      const { pages, prev } = info || {};
-      const currentPage = 1 + (prev || 0);
+    if (!error) {
+      if (data && name === nameTyped) {
+        const { info, results } = data[dataType] || {};
+        const { pages, prev } = info || {};
+        const currentPage = 1 + (prev || 0);
 
-      if (pages && results) {
-        dispatch({ type: WRITE_RESULTS_BY_PAGE, payload: { currentPage, results } });
-        if (currentPage < pages) {
-          doQuery({
-            variables: {
-              page: currentPage + 1,
-              filter: { name: state.name },
-            },
-          });
+        if (pages && results) {
+          writeItemsByPage({ currentPage, results });
+          if (currentPage < pages) {
+            doQuery({ page: currentPage + 1, name });
+          } else {
+            stopLoading();
+          }
         }
       }
     }
-  }, [dispatch, doQuery, dataType, state.name, wait, data]);
-  useEffect(() => {
-    onCompleted && onCompleted(state.resultsByPages);
-  }, [onCompleted, state.resultsByPages, state.resultsByPages.length]);
-  useEffect(() => {
-    if (wait && !timer) {
-      doQuery({
-        variables: {
-          page: 1,
-          filter: { name: state.name },
-        },
-      });
-      setWait(false);
-      setTimer(setTimeout(() => {
-        timer && clearTimeout(timer);
-        setTimer(null);
-      }, FINDER_REQUESTS_INTERVAL));
-    }
-  }, [state.name, wait, timer, doQuery, dispatch]);
+  }, [data, dataType, name, nameTyped, error, stopLoading, doQuery, writeItemsByPage]);
 
   return (
     <StyledInput
       onChange={(event): void => {
-        dispatch({ type: UPDATE_NAME, payload: event.currentTarget.value });
+        updateNameTyped(event.currentTarget.value);
       }}
       placeholder={FINDER_PLACEHOLDER}
     />
   );
-};
+});
