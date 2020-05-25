@@ -4,9 +4,15 @@ export const light: DefaultTheme = {
   colors: {
     main: '#000',
     secondary: '#fff',
-    shadowCard: '#dadada',
+    cardPlaceholder: '#dadada',
     error: '#999',
     overlay: 'rgba(255, 255, 255, 0.5)',
+  },
+  sizes: {
+    cardImage: {
+      width: '6rem',
+      height: '7.33rem',
+    },
   },
 };
 export const dark: DefaultTheme = {
