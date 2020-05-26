@@ -32,7 +32,7 @@ export default memo(({
   placeholder?: string;
   image?: string | null;
   opacity?: number;
-  children?: ReactChild;
+  children?: ReactChild | (ReactChild | null)[] | null;
   onClick?: ReactEventHandler;
   onTransitionEnd?: ReactEventHandler;
 }): ReactElement => (

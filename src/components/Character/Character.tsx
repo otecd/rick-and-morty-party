@@ -29,6 +29,17 @@ const StyledCloseButton = styled.button`
     background-color: red;
   }
 `;
+const StyledInPartyLabel = styled.p`
+  position: absolute;
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 0.3rem;
+  width: 100%;
+  bottom: 1rem;
+  left: 0;
+  font-weight: 700;
+  background: linear-gradient(to bottom, transparent, ${(props): string => props.theme.colors.secondary});
+`;
 
 export default memo((props: {
   id: string | null;
@@ -37,7 +48,7 @@ export default memo((props: {
 }): ReactElement => {
   const { name, image } = props;
   const { actions: collectionActions } = useContext(CollectionStoreContext);
-  const { actions: partyActions } = useContext(PartyStoreContext);
+  const { state: partyState, actions: partyActions } = useContext(PartyStoreContext);
   const [hidden, hide] = useState(false);
   const validateItemForParty = useCallback(() => [
     NAME_RICK,
@@ -61,10 +72,14 @@ export default memo((props: {
       onTransitionEnd={(): void => {
         if (hidden) {
           excludeItem(props);
-          hide(false);
         }
       }}
     >
+      {Array
+        .from(partyState.membersByRoles.values())
+        .some(partyMember => partyMember && partyMember.id === props.id)
+        ? (<StyledInPartyLabel>In Party</StyledInPartyLabel>)
+        : null}
       <StyledCloseButton
         onClick={(): void => {
           hide(true);
