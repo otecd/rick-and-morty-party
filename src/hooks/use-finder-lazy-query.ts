@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { FINDER_ERROR_NOT_FOUND } from '../../const';
+import { FINDER_ERROR_NOT_FOUND } from '../const';
 
 export default ({ query, errorMessageCb }: {
   query: GlobalDocumentNode;

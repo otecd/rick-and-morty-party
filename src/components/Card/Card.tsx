@@ -5,8 +5,6 @@ import React, {
   ReactEventHandler,
 } from 'react';
 import styled from 'styled-components';
-import CardImage from './CardImage';
-import CardPlaceholder from './CardPlaceholder';
 
 const StyledCard = styled.div<{ opacity: number }>`
   position: relative;
@@ -18,6 +16,31 @@ const StyledCard = styled.div<{ opacity: number }>`
   & > svg {
     height: inherit;
     width: inherit;
+  }
+`;
+const CardImage = styled.img`
+  width: ${(props): string => props.theme.sizes.cardImage.width};
+  height: ${(props): string => props.theme.sizes.cardImage.height};
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+`;
+const CardPlaceholder = styled.div<{ content: string }>`
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: ${(props): string => props.theme.sizes.cardImage.width};
+  height: ${(props): string => props.theme.sizes.cardImage.height};
+  background-color: ${(props): string => props.theme.colors.cardPlaceholder};
+  text-transform: uppercase;
+
+  &::after {
+    content: '${(props): string => props.content}';
+    position: absolute;
+    width: 100%;
+    bottom: 1rem;
+    font: inherit;
+    font-size: 0.8rem;
+    color: ${(props): string => props.theme.colors.secondary};
   }
 `;
 

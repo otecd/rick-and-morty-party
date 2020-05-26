@@ -6,7 +6,7 @@ import React, {
   ReactElement,
 } from 'react';
 import styled from 'styled-components';
-import Card from '../Card/Card';
+import { Card } from '../Card';
 import { CollectionStoreContext } from '../../store/collection';
 import { PartyStoreContext } from '../../store/party';
 import { NAME_MORTY, NAME_RICK } from '../../const';

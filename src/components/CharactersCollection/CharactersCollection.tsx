@@ -2,8 +2,8 @@ import React, { useContext, ReactElement } from 'react';
 import styled from 'styled-components';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
-import Character from '../Character/Character';
-import Grid from '../Grid/Grid';
+import { Character } from '../Character';
+import { Grid } from '../Grid';
 
 const StyledOverlay = styled.div`
   position: absolute;

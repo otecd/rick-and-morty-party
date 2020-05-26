@@ -4,8 +4,8 @@ import React, {
   ReactElement,
 } from 'react';
 import styled from 'styled-components';
-import Grid from '../Grid/Grid';
-import PartyMember from '../PartyMember/PartyMember';
+import { Grid } from '../Grid';
+import { PartyMember } from '../PartyMember';
 import { PartyStoreContext } from '../../store/party';
 
 const StyledPartyHeading = styled.h2`
