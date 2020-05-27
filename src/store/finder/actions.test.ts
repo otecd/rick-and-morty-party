@@ -5,7 +5,7 @@ let dispatch: Dispatch<ReducerAction>;
 const payload = 'test';
 
 beforeEach(() => {
-  dispatch = jest.fn(() => 'dispatch');
+  dispatch = jest.fn();
 });
 
 test('should have correct methods names', () => {
