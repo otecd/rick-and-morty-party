@@ -1,5 +1,5 @@
 import React, { memo, ReactElement } from 'react';
-import Card from '../Card/Card';
+import { Card } from '../Card';
 
 export default memo(({ role, image }: {
   role: PartyRole;
