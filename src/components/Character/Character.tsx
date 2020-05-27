@@ -81,7 +81,8 @@ export default memo((props: {
         ? (<StyledInPartyLabel>In Party</StyledInPartyLabel>)
         : null}
       <StyledCloseButton
-        onClick={(): void => {
+        onClick={(ev): void => {
+          ev.stopPropagation();
           hide(true);
         }}
       >

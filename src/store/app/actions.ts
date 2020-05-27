@@ -1,11 +1,10 @@
-import { useCallback, Dispatch } from 'react';
+import { Dispatch } from 'react';
 
 export const appActionTypes = {
   THEME_CHANGED: 'THEME_CHANGED',
 };
-
-export default (dispatch: Dispatch<ReducerAction>): AppActions => ({
-  toggleTheme: useCallback((): void => {
+export default {
+  toggleTheme: (dispatch: Dispatch<ReducerAction>): void => {
     dispatch({ type: appActionTypes.THEME_CHANGED });
-  }, [dispatch]),
-});
+  },
+};

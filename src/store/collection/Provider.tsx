@@ -3,16 +3,19 @@ import React, {
   PropsWithChildren,
   ReactElement,
 } from 'react';
+import actionsBuilder from '../actions-builder';
 import Context from './context';
 import reducer from './reducer';
 import initialState from './initial-state';
-import actionsBuilder from './actions';
+import actions from './actions';
 
-export default ({ children }: PropsWithChildren<{}>): ReactElement => {
+export default ({ children }: PropsWithChildren<any>): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <Context.Provider value={{ state, actions: actionsBuilder(dispatch) }}>
+    <Context.Provider
+      value={{ state, actions: actionsBuilder<CollectionActions>({ actions, dispatch }) }}
+    >
       {children}
     </Context.Provider>
   );

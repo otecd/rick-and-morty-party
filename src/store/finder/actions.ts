@@ -1,4 +1,4 @@
-import { useCallback, Dispatch } from 'react';
+import { Dispatch } from 'react';
 
 export const finderActionTypes = {
   NAME_UPDATED: 'NAME_UPDATED',
@@ -8,28 +8,27 @@ export const finderActionTypes = {
   LOADING_STARTED: 'LOADING_STARTED',
   LOADING_ENDED: 'LOADING_ENDED',
 };
-
-export default (dispatch: Dispatch<ReducerAction>): FinderActions => ({
-  updateName: useCallback((payload: string): void => {
+export default {
+  updateName: (dispatch: Dispatch<ReducerAction>, payload: string): void => {
     dispatch({ type: finderActionTypes.NAME_UPDATED, payload });
     dispatch({ type: finderActionTypes.LOADING_STARTED });
-  }, [dispatch]),
-  updateNameTyped: useCallback((payload: string): void => {
+  },
+  updateNameTyped: (dispatch: Dispatch<ReducerAction>, payload: string): void => {
     dispatch({ type: finderActionTypes.NAME_TYPED_UPDATED, payload });
     dispatch({ type: finderActionTypes.ERROR_CLEARED });
-  }, [dispatch]),
-  throwError: useCallback((payload: string): void => {
+  },
+  throwError: (dispatch: Dispatch<ReducerAction>, payload: string): void => {
     dispatch({ type: finderActionTypes.ERROR_THROWN, payload });
     dispatch({ type: finderActionTypes.NAME_UPDATED, payload: '' });
     dispatch({ type: finderActionTypes.LOADING_ENDED });
-  }, [dispatch]),
-  clearError: useCallback((): void => {
+  },
+  clearError: (dispatch: Dispatch<ReducerAction>): void => {
     dispatch({ type: finderActionTypes.ERROR_CLEARED });
-  }, [dispatch]),
-  startLoading: useCallback((): void => {
+  },
+  startLoading: (dispatch: Dispatch<ReducerAction>): void => {
     dispatch({ type: finderActionTypes.LOADING_STARTED });
-  }, [dispatch]),
-  stopLoading: useCallback((): void => {
+  },
+  stopLoading: (dispatch: Dispatch<ReducerAction>): void => {
     dispatch({ type: finderActionTypes.LOADING_ENDED });
-  }, [dispatch]),
-});
+  },
+};
