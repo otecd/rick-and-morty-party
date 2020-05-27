@@ -7,7 +7,7 @@ import React, {
   ReactElement,
 } from 'react';
 import styled from 'styled-components';
-import useFinderLazyQuery from './use-finder-lazy-query';
+import useFinderLazyQuery from '../../hooks/use-finder-lazy-query';
 import { FinderStoreContext } from '../../store/finder';
 import { CollectionStoreContext } from '../../store/collection';
 import {
